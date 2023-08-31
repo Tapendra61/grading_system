@@ -1,10 +1,8 @@
 #include "stdio.h"
-#include"../include/util.h"
+#include "../include/authentication.h"
 
 int main() {
-	int a = 10;
-	int b = 20;
-	printf("%d", add_test(a, b));
+	entry();
 	getchar();
 	return 0;
 }
