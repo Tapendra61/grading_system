@@ -1,1 +1,1 @@
-This is a dummy text.
+{Name:"mausham",symbol no. :2025,subject1:80}

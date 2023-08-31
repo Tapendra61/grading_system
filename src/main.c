@@ -1,10 +1,15 @@
 #include "stdio.h"
-#include"../include/util.h"
+#include"../include/calculator.h"
 
 int main() {
-	int a = 10;
-	int b = 20;
-	printf("%d", add_test(a, b));
+	Info subject;
+	subject.marks1=50;
+	float gpa;
+	char grade;
+	gpa=calculate_gpa(subject.marks1);
+	printf("%.1f",gpa);
+	grade=calculate_grade(subject.marks1);
+	printf("%c",grade);
 	getchar();
 	return 0;
 }
