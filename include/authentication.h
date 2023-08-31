@@ -3,12 +3,14 @@
 
 typedef struct {
 	char username[50];
-	char password[50];
+	unsigned char password_hash[64];
 }User;
 
 void entry();
 void login();
 void account_register();
 void exit_program(int error_code);
+
+int login_validator(char username[], char password[]);
 
 #endif
