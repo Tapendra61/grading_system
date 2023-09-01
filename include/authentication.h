@@ -1,7 +1,7 @@
 #ifndef AUTHENTICATION_H
 #define AUTHENTICATION_H
 
-typedef struct {
+typedef struct{
 	char username[50];
 	unsigned char password_hash[64];
 }User;

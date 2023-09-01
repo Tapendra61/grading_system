@@ -80,9 +80,9 @@ void account_register() {
 	//---TODO--- Generate Hash of the password and store that instead of plain password
 	strcpy(user.password_hash, password);
 	if(is_file_empty(user_data)) {
-		fwrite(&user, sizeof(User),1 , user_data);
+		fwrite(&user, sizeof(User), 1, user_data);
 	}
-
+	//
 }
 
 void exit_program(int error_code) {
@@ -92,6 +92,4 @@ void exit_program(int error_code) {
 int login_validator(char username[], char password[]) {
 	return 0;
 }
-
-
 
