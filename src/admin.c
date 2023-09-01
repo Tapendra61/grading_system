@@ -1,12 +1,12 @@
 
 #include "stdlib.h"
 #include "string.h"
-#include"../include/admin.h"
+#include "../include/admin.h"
 
-void viewtrecord(){}
-void searchs(){}
-void delete(){}
-void calculate(){}
+void viewtrecord() {}
+void searchs() {}
+void delete() {}
+void calculate() {}
 
 void addstudent()
 {
@@ -14,7 +14,7 @@ void addstudent()
     char is_continue;
     FILE *file_ptr;
     int sub_counter = 1;
-    int is_student_present=0;
+    int is_student_present = 0;
 
     struct Student input_student;
     struct Student read_student;
@@ -30,7 +30,7 @@ void addstudent()
     {
         printf("\t\t\t =======Add Student input_student======\n\n\n ");
         printf("\n\t\t\t Enter your symbol no :");
-        scanf("%d",&input_student.symbol_no);
+        scanf("%d", &input_student.symbol_no);
         fflush(stdin);
         printf("\n\t\t\tEnter first name :");
         gets(input_student.first_name);
@@ -40,7 +40,6 @@ void addstudent()
         gets(input_student.DOB);
 
         fflush(stdin);
-      
 
         printf("\n\t\t\tEnter  subject name :");
         gets(input_student.subject[0]);
@@ -86,21 +85,21 @@ void addstudent()
             }
         }
 
-        sub_counter=0;
+        sub_counter = 0;
         printf("\n\t\t\t-------------------------------\n");
         fflush(stdin);
 
-       while (fread(&read_student, sizeof(struct Student), 1, file_ptr)>0)
+        while (fread(&read_student, sizeof(struct Student), 1, file_ptr) > 0)
         {
-            if(read_student.symbol_no==input_student.symbol_no)
+            if (read_student.symbol_no == input_student.symbol_no)
             {
-                 is_student_present=1;
-                 break;
+                is_student_present = 1;
+                break;
             }
         }
-        if(is_student_present==0)
+        if (is_student_present == 0)
         {
-        fwrite(&input_student, sizeof(struct Student), 1, file_ptr);
+            fwrite(&input_student, sizeof(struct Student), 1, file_ptr);
         }
         printf("\n\t\t\tFILE HAS BEEN SUCCESFULLY ADDED");
         fclose(file_ptr);
@@ -109,7 +108,37 @@ void addstudent()
 
     } while (ch == 'y' || ch == 'Y');
 }
+void viewrecord()
+{
+    FILE *file_ptr;
+    int length;
+    int i;
 
+    file_ptr = fopen("grading_system/app/student_info.txt", "r");
+    if (file_ptr == NULL)
+    {
+        printf("\n\t\tFILE DOESN'T EXIST\n");
+        exit(0);
+    }
+    struct Student read_student;
+    printf("\t\t\t =======Student Records======\n\n\n ");
+    printf("\t\t\t\t-------------------------------------------\n\n");
+    while (fread(&read_student, sizeof(struct Student), 1, file_ptr)>0)
+    {
+        printf("\n\t\t\t Student symbol no : %d ",read_student.symbol_no);
+        printf("\n\t\t\tStudent name : %s %s",read_student.first_name, read_student.last_name);
+        printf("\n\t\t\t Student : %s ", read_student.DOB);
+        length=strlen(read_student.subject);
+        for(i=0;i=length;i++)
+        {
+        printf("\n\t\t\t Subject : %s ", read_student.subject[i]);
+        printf("\n\t\t\t Subject marks: %d", read_student.marks[i]);
+        }
+        printf("\n\t\t\t-------------------------------\n");
+    }
+    fclose(file_ptr);
+    getch();
+}
 
 void menu()
 {
@@ -127,7 +156,7 @@ void menu()
         printf("\t\t\t 6.Exit\n ");
         printf("\t\t ------------------------------------------------------\n ");
         printf("\t\t\t Enter your choice \n ");
-        scanf("%d",&choice);
+        scanf("%d", &choice);
         switch (choice)
         {
         case 1:
