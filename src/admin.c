@@ -63,17 +63,17 @@ void menu(){
     gets(student.first_name);
     printf("\n\t\t\tEnter last name :");
     gets(student.last_name);
-    printf("\n\t\t\tEnter faculty :");
+    printf("\n\t\t\tEnter grade :");
     gets(student.grade);
     fflush(stdin);
-    printf("\n\t\t\tEnter semester :");
-    scanf("
-    printf("\n\t\t\tEnter  c programming marks :");
-    scanf("%d",&student.cmarks);
-    printf("\n\t\t\tEnter sociology marks :");
-    scanf("%d",&student.scit_marks);
-    printf("\n\t\t\tEnter technical communication marks");
-    scanf("%d",&student.tcmarks);
+    printf("\n\t\t\tEnter  :");
+
+    printf("\n\t\t\tEnter  subject1 name :");
+    gets(student.subject1);
+printf("\n\t\t\tEnter  %s grade :",student.subject1);
+    scanf("%d",&student.grade1);
+
+
     printf("\n\t\t\t-------------------------------\n");
     fflush(stdin);
     
