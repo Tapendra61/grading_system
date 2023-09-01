@@ -14,6 +14,7 @@ void addstudent()
     char is_continue;
     FILE *file_ptr;
     int sub_counter = 1;
+    int is_student_present=0;
 
     struct Student input_student;
     struct Student read_student;
@@ -85,16 +86,22 @@ void addstudent()
             }
         }
 
+        sub_counter=0;
         printf("\n\t\t\t-------------------------------\n");
         fflush(stdin);
 
-    //    while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
-    //     {
-    //         if
-    //     }
-
+       while (fread(&read_student, sizeof(struct Student), 1, file_ptr)>0)
+        {
+            if(read_student.symbol_no==input_student.symbol_no)
+            {
+                 is_student_present=1;
+                 break;
+            }
+        }
+        if(is_student_present==0)
+        {
         fwrite(&input_student, sizeof(struct Student), 1, file_ptr);
-
+        }
         printf("\n\t\t\tFILE HAS BEEN SUCCESFULLY ADDED");
         fclose(file_ptr);
         printf("\t\t\tDo you want to add another record?(y\n): ");
