@@ -60,14 +60,25 @@ void login() {
 void account_register() {
 	fflush(stdin);
 	User user;
+	char user_name[21];
 	char password[50];
 	FILE* user_data;
 
 	system("cls");
 	printf("--------Register Account-------\n");
+
+	re_username:
 	printf("Enter a new login ID: \n");
-	scanf("%[^\n]", user.username);
+	scanf("%[^\n]", user_name);
 	fflush(stdin);
+
+	if(!is_password_user_valid(user_name)){
+		printf("Username can only contain AlphaNumeric values and should not exceed 20 characters. Try again!\n");
+		memset(user_name, 0, sizeof(user_name));
+		Sleep(3000);
+		goto re_username;
+	}
+
 	printf("Enter a new password: ");
 	scanf("%[^\n]", password);
 	fflush(stdin);
