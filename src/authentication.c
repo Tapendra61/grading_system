@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
+#include "ctype.h"
 #include "Windows.h"
 #include "authentication.h"
 #include "utility.h"
@@ -87,6 +88,18 @@ void account_register() {
 
 void exit_program(int error_code) {
 	exit(error_code);
+}
+
+//Check if password contains only alphaNumberic characters
+int is_password_valid(char password[]){
+	int length = strlen(password);
+	int i = 0;
+	for(i = 0; i < length; i++) {
+		if(!isalnum((unsigned char)password[i])) {
+			return 0;
+		}
+	}
+	return 1;
 }
 
 int login_validator(char username[], char password[]) {

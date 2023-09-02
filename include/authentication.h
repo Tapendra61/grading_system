@@ -10,6 +10,7 @@ void entry();
 void login();
 void account_register();
 void exit_program(int error_code);
+int is_password_valid(char password[])
 
 int login_validator(char username[], char password[]);
 
