@@ -79,6 +79,8 @@ void account_register() {
 		goto re_username;
 	}
 
+	strcpy(user.username, user_name);
+
 	printf("Enter a new password: ");
 	scanf("%[^\n]", password);
 	fflush(stdin);
@@ -86,7 +88,7 @@ void account_register() {
 	user_data = fopen("resources/user_data.DAT", "r+");
 	if(user_data == NULL) {
 		printf("Could not read the user_data file or could not create the file.");
-		Sleep(3000);
+		Sleep(2000);
 		exit_program(1);
 	}
 
@@ -106,7 +108,7 @@ void exit_program(int error_code) {
 int is_password_user_valid(char password_user[]){
 	int length = strlen(password_user);
 	int i = 0;
-	if(length > 20) return 0;
+	if(length == 0 || length > 20) return 0;
 	for(i = 0; i < length; i++) {
 		if(!isalnum((unsigned char)password_user[i])) {
 			return 0;
