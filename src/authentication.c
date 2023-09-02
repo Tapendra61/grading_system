@@ -70,6 +70,7 @@ void account_register() {
 	fflush(stdin);
 	printf("Enter a new password: ");
 	scanf("%[^\n]", password);
+	fflush(stdin);
 
 	user_data = fopen("resources/user_data.DAT", "r+");
 	if(user_data == NULL) {
@@ -91,11 +92,12 @@ void exit_program(int error_code) {
 }
 
 //Check if password contains only alphaNumberic characters
-int is_password_valid(char password[]){
-	int length = strlen(password);
+int is_password_user_valid(char password_user[]){
+	int length = strlen(password_user);
 	int i = 0;
+	if(length > 20) return 0;
 	for(i = 0; i < length; i++) {
-		if(!isalnum((unsigned char)password[i])) {
+		if(!isalnum((unsigned char)password_user[i])) {
 			return 0;
 		}
 	}
