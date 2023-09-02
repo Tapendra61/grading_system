@@ -60,8 +60,8 @@ void login() {
 void account_register() {
 	fflush(stdin);
 	User user;
-	char user_name[21];
-	char password[50];
+	char user_name[31];
+	char password[31];
 	FILE* user_data;
 
 	system("cls");
@@ -73,17 +73,25 @@ void account_register() {
 	fflush(stdin);
 
 	if(!is_password_user_valid(user_name)){
-		printf("Username can only contain AlphaNumeric values and should not exceed 20 characters. Try again!\n");
+		printf("Username can only contain AlphaNumeric values and should not exceed 30 characters. Try again!\n");
 		memset(user_name, 0, sizeof(user_name));
-		Sleep(3000);
+		Sleep(1500);
 		goto re_username;
 	}
 
 	strcpy(user.username, user_name);
 
+	re_password:
 	printf("Enter a new password: ");
 	scanf("%[^\n]", password);
 	fflush(stdin);
+
+	if(!is_password_user_valid(password)){
+		printf("Password can only contain AlphaNumeric values and should not exceed 30 characters. Try again!\n");
+		memset(password, 0, sizeof(password));
+		Sleep(1500);
+		goto re_password;
+	}
 
 	user_data = fopen("resources/user_data.DAT", "r+");
 	if(user_data == NULL) {
@@ -108,7 +116,7 @@ void exit_program(int error_code) {
 int is_password_user_valid(char password_user[]){
 	int length = strlen(password_user);
 	int i = 0;
-	if(length == 0 || length > 20) return 0;
+	if(length == 0 || length > 30) return 0;
 	for(i = 0; i < length; i++) {
 		if(!isalnum((unsigned char)password_user[i])) {
 			return 0;

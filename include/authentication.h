@@ -2,7 +2,7 @@
 #define AUTHENTICATION_H
 
 typedef struct{
-	char username[21];
+	char username[31];
 	unsigned char password_hash[64];
 }User;
 
