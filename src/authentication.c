@@ -112,7 +112,7 @@ void exit_program(int error_code) {
 	exit(error_code);
 }
 
-//Check if password contains only alphaNumberic characters
+//Check if username and password contains only alphaNumberic characters
 int is_password_user_valid(char password_user[]){
 	int length = strlen(password_user);
 	int i = 0;

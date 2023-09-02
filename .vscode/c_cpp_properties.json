@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Your Configuration Name",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Program Files/OpenSSL-Win64/include"  // Replace with the actual path to your OpenSSL headers
+            ],
+            "defines": [],
+            "compilerPath": "C:/MinGW/bin/gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "C:/Program Files/OpenSSL-Win64/lib"  // Replace with the actual path to your OpenSSL libraries
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}
