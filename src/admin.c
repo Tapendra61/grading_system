@@ -97,10 +97,12 @@ void addstudent()
                 break;
             }
         }
+
         if (is_student_present == 0)
         {
             fwrite(&input_student, sizeof(struct Student), 1, file_ptr);
         }
+        
         printf("\n\t\t\tFILE HAS BEEN SUCCESFULLY ADDED");
         fclose(file_ptr);
         printf("\t\t\tDo you want to add another record?(y\n): ");
@@ -108,6 +110,7 @@ void addstudent()
 
     } while (ch == 'y' || ch == 'Y');
 }
+
 void viewrecord()
 {
     FILE *file_ptr;
@@ -137,7 +140,7 @@ void viewrecord()
         printf("\n\t\t\t-------------------------------\n");
     }
     fclose(file_ptr);
-    getch();
+    getchar();
 }
 
 void menu()
