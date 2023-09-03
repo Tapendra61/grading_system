@@ -3,10 +3,6 @@
 #include "string.h"
 #include "../include/admin.h"
 
-void viewtrecord() {}
-void searchs() {}
-void delete() {}
-void calculate() {}
 
 void addstudent()
 {
@@ -168,21 +164,22 @@ void menu()
             viewtrecord();
             getchar();
             break;
-        case 3:
-            searchs();
+        // case 3:
+        //     searchs();
+        //     getchar();
+        //     break;
+        // case 4:
+        //     delete ();
+        //     getchar();
+        //     break;
+        // case 5:
+        //     calculate();
+        //     getchar();
+        //     break;
+        // case 6:
+           exit(0);
+            break;
             getchar();
-            break;
-        case 4:
-            delete ();
-            getchar();
-            break;
-        case 5:
-            calculate();
-            getchar();
-            break;
-        case 6:
-            exit(0);
-            break;
         }
     }
 }

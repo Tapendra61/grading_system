@@ -17,9 +17,6 @@ struct Student
 };
 
 void viewtrecord();
-void searchs();
-void delete();
-void calculate();
 void addstudent();
 void menu();
 
