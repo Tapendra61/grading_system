@@ -15,10 +15,11 @@ void addstudent()
     struct Student input_student;
     struct Student read_student;
 
-    file_ptr = fopen("grading_system/app/student_info.txt", "a+");
+    file_ptr = fopen("resources/student_info.txt", "r+");
     if (file_ptr == NULL)
     {
         printf("\n\t\tFILE DOESN'T EXIST\n");
+        getchar();
         exit(0);
     }
 
@@ -161,7 +162,7 @@ void menu()
             addstudent();
             getchar();
 
-            break;
+        break;
         case 2:
             viewrecord();
             getchar();
