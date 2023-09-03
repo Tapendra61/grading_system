@@ -20,7 +20,7 @@ void addstudent()
     file_ptr = fopen("resources/student_info.txt", "r+");
     if (file_ptr == NULL)
     {
-        printf("\n \tFILE DOESN'T EXIST\n");
+        printf("\nFILE DOESN'T EXIST\n");
         getchar();
         exit(0);
     }
@@ -49,12 +49,12 @@ void addstudent()
         scanf("%d", &no_of_sub);
         for (i = 0; i < no_of_sub; i++)
         {
-            printf("\nEnter  subject name :");
+            printf("\nEnter subject name :");
             scanf("%s", input_student.subject[i]);
             printf("\nEnter  %s grade :", input_student.subject[i]);
             scanf("%d", &input_student.marks[i]);
         }
-        printf("\n -------------------------------\n");
+        printf("\n-------------------------------\n");
         fflush(stdin);
 
         while (fread(&read_student, sizeof(struct Student), 1, file_ptr) > 0)
@@ -105,7 +105,7 @@ void viewrecord()
             printf("\nSubject : %s ", read_student.subject[i]);
             printf("\nSubject marks: %d", read_student.marks[i]);
         }
-        printf("\n   -------------------------------\n");
+        printf("\n-------------------------------\n");
     }
     fclose(file_ptr);
     getchar();
@@ -114,26 +114,27 @@ void viewrecord()
 void menu()
 {
     int choice;
+    printf("=======STUDENT DATABASE======= ");
+    printf("\n\n\n1.Add Student Record\n ");
+    printf("2.View Student Record\n ");
+    printf("3.Search Student Record\n ");
+    printf("4.Delete Student Record\n ");
+    printf("5.Calculate Student Record\n ");
+    printf("6.Exit\n ");
+    printf("------------------------------------------------------\n ");
+    re_choice:
+    printf("Enter your choice\n ");
+    scanf("%d", &choice);
+    if(!(choice >= 1 && choice <= 6)) {
+        printf("Invalid choice. Try again!");
+        goto re_choice;
+    }
 
-    while (1)
+    switch (choice)
     {
-
-        printf("   =======STUDENT DATABASE======= ");
-        printf("\n\n\n    1.Add Student Record\n ");
-        printf("    2.View Student Record\n ");
-        printf("    3.Search Student Record\n ");
-        printf("    4.Delete Student Record\n ");
-        printf("    5.Calculate Student Record\n ");
-        printf("    6.Exit\n ");
-        printf("   ------------------------------------------------------\n ");
-        printf("    Enter your choice \n ");
-        scanf("%d", &choice);
-        switch (choice)
-        {
         case 1:
             addstudent();
             getchar();
-
             break;
         case 2:
             viewrecord();
@@ -151,10 +152,9 @@ void menu()
             //     calculate();
             //     getchar();
             //     break;
-            // case 6:
+        case 6:
             exit(0);
-            break;
-            getchar();
-        }
+        break;
+        getchar();
     }
 }
