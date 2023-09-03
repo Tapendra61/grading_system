@@ -138,10 +138,10 @@ void menu()
             viewrecord();
             getchar();
             break;
-            // case 3:
-            //     searchs();
-            //     getchar();
-            //     break;
+            case 3:
+                searchs();
+                getchar();
+                break;
             // case 4:
             //     delete ();
             //     getchar();
@@ -171,6 +171,7 @@ void searchs()
     }
     struct Student read_student;
     printf("\n ======= Search Student ======\n\n\n ");
+    find:
     printf("\nEnter first name:");
     scanf("%s",first_name);
     printf("\nEnter symbol :");
@@ -196,7 +197,7 @@ void searchs()
             printf("\n-----------------------------------\n");
             }
         }
-        if (read_student.symbol_no == symbol_no)
+        else if (read_student.symbol_no == symbol_no)
         {
             found_student = 1;
             printf("\nStudent symbol no : %d ", read_student.symbol_no);
@@ -210,10 +211,16 @@ void searchs()
 
             printf("\n-----------------------------------\n");
         }
+        else
+        {
+            printf("\nPlease search by first name or symbol no");
+            goto find;
+        }
     }
     if (found_student = 0)
     {
-        printf("\n\t\t\tREcords not found_student :");
+        printf("\n\t\t\tRecords not found_student :");
+        
     }
     fclose(file_ptr);
     getchar();
