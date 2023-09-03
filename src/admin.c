@@ -3,10 +3,6 @@
 #include "string.h"
 #include "../include/admin.h"
 
-void viewtrecord() {}
-void searchs() {}
-void delete() {}
-void calculate() {}
 
 void addstudent()
 {
@@ -33,33 +29,32 @@ void addstudent()
         scanf("%d", &input_student.symbol_no);
         fflush(stdin);
         printf("\n\t\t\tEnter first name :");
-        gets(input_student.first_name);
+        scanf("%s",input_student.first_name);
         printf("\n\t\t\tEnter last name :");
-        gets(input_student.last_name);
+          scanf("%s",input_student.last_name);
         printf("\n\t\t\tEnter your date of birth in  DD/MM/YYYY:");
-        gets(input_student.DOB);
+          scanf("%s",input_student.DOB);
 
         fflush(stdin);
 
         printf("\n\t\t\tEnter  subject name :");
-        gets(input_student.subject[0]);
-        printf("\n\t\t\tEnter  %s grade :", input_student.subject[0]);
+        scanf("%s",input_student.subject);
+        printf("\n\t\t\tEnter  %s grade :", input_student.subject);
         scanf("%d", &input_student.marks[0]);
 
         printf("\n\t\t\tDo you want to continue adding new subject(y/Y) :");
-        scanf("%c", &is_continue);
-        strupr(is_continue);
-        while (is_continue != 'Y')
+        scanf("%s", is_continue);
+        while (is_continue != "Y"||is_continue !="y")
         {
         add_new_sub:
             printf("\n\t\t\tEnter  subject name :");
-            gets(input_student.subject[sub_counter]);
-            printf("\n\t\t\tEnter  %d grade :", input_student.subject[sub_counter]);
+            scanf("%s",input_student.subject);
+            printf("\n\t\t\tEnter  %s grade :", input_student.subject);
             scanf("%d", &input_student.marks[sub_counter]);
             printf("\n\t\t\tDo you want to continue adding new subject(y/Y) :");
-            scanf("%c", &is_continue);
-            strupr(is_continue);
-            if (is_continue == 'Y')
+            scanf("%s", is_continue);
+    
+            if (is_continue =="Y"||is_continue =="y")
             {
                 sub_counter++;
             }
@@ -67,13 +62,13 @@ void addstudent()
             {
             reask:
                 printf("\n\t\t\tAre you sure you want to exit(y/n):");
-                scanf("%c", &is_continue);
-                strupr(is_continue);
-                if (is_continue == 'Y')
+                scanf("%s", is_continue);
+                
+                if (is_continue == "Y"||is_continue == "y")
                 {
                     break;
                 }
-                else if (is_continue == 'N')
+                else if (is_continue == "N"||is_continue == "n")
                 {
                     goto add_new_sub;
                 }
@@ -134,7 +129,7 @@ void viewrecord()
         length = strlen(read_student.subject);
         for (i = 0; i = length; i++)
         {
-            printf("\n\t\t\t Subject : %s ", read_student.subject[i]);
+            printf("\n\t\t\t Subject : %s ", read_student.subject);
             printf("\n\t\t\t Subject marks: %d", read_student.marks[i]);
         }
         printf("\n\t\t\t-------------------------------\n");
@@ -168,24 +163,25 @@ void menu()
 
             break;
         case 2:
-            viewtrecord();
+            viewrecord();
             getchar();
             break;
-        case 3:
-            searchs();
+        // case 3:
+        //     searchs();
+        //     getchar();
+        //     break;
+        // case 4:
+        //     delete ();
+        //     getchar();
+        //     break;
+        // case 5:
+        //     calculate();
+        //     getchar();
+        //     break;
+        // case 6:
+           exit(0);
+            break;
             getchar();
-            break;
-        case 4:
-            delete ();
-            getchar();
-            break;
-        case 5:
-            calculate();
-            getchar();
-            break;
-        case 6:
-            exit(0);
-            break;
         }
     }
 }
