@@ -11,7 +11,7 @@ void calculate() {}
 void addstudent()
 {
     char ch;
-    char is_continue;
+    char is_continue[1];
     FILE *file_ptr;
     int sub_counter = 1;
     int is_student_present = 0;
@@ -123,16 +123,16 @@ void viewrecord()
     struct Student read_student;
     printf("\t\t\t =======Student Records======\n\n\n ");
     printf("\t\t\t\t-------------------------------------------\n\n");
-    while (fread(&read_student, sizeof(struct Student), 1, file_ptr)>0)
+    while (fread(&read_student, sizeof(struct Student), 1, file_ptr) > 0)
     {
-        printf("\n\t\t\t Student symbol no : %d ",read_student.symbol_no);
-        printf("\n\t\t\tStudent name : %s %s",read_student.first_name, read_student.last_name);
+        printf("\n\t\t\t Student symbol no : %d ", read_student.symbol_no);
+        printf("\n\t\t\tStudent name : %s %s", read_student.first_name, read_student.last_name);
         printf("\n\t\t\t Student : %s ", read_student.DOB);
-        length=strlen(read_student.subject);
-        for(i=0;i=length;i++)
+        length = strlen(read_student.subject);
+        for (i = 0; i = length; i++)
         {
-        printf("\n\t\t\t Subject : %s ", read_student.subject[i]);
-        printf("\n\t\t\t Subject marks: %d", read_student.marks[i]);
+            printf("\n\t\t\t Subject : %s ", read_student.subject[i]);
+            printf("\n\t\t\t Subject marks: %d", read_student.marks[i]);
         }
         printf("\n\t\t\t-------------------------------\n");
     }
@@ -161,19 +161,24 @@ void menu()
         {
         case 1:
             addstudent();
+            getchar();
 
             break;
         case 2:
             viewtrecord();
+            getchar();
             break;
         case 3:
             searchs();
+            getchar();
             break;
         case 4:
             delete ();
+            getchar();
             break;
         case 5:
             calculate();
+            getchar();
             break;
         case 6:
             exit(0);
