@@ -3,7 +3,6 @@
 #include "string.h"
 #include "../include/admin.h"
 
-
 void addstudent()
 {
     char ch;
@@ -11,6 +10,9 @@ void addstudent()
     FILE *file_ptr;
     int sub_counter = 1;
     int is_student_present = 0;
+    int no_of_sub = 0;
+    int i = 0;
+
 
     struct Student input_student;
     struct Student read_student;
@@ -18,71 +20,41 @@ void addstudent()
     file_ptr = fopen("resources/student_info.txt", "r+");
     if (file_ptr == NULL)
     {
-        printf("\n\t\tFILE DOESN'T EXIST\n");
+        printf("\n \tFILE DOESN'T EXIST\n");
         getchar();
         exit(0);
     }
 
     do
     {
-        printf("\t\t\t =======Add Student input_student======\n\n\n ");
-        printf("\n\t\t\t Enter your symbol no :");
+        printf("\n=======Add Student input_student======\n\n\n ");
+        printf("\nEnter your symbol no :");
         scanf("%d", &input_student.symbol_no);
         fflush(stdin);
-        printf("\n\t\t\tEnter first name :");
-        scanf("%s",input_student.first_name);
-        printf("\n\t\t\tEnter last name :");
-          scanf("%s",input_student.last_name);
-        printf("\n\t\t\tEnter your date of birth in  DD/MM/YYYY:");
-          scanf("%s",input_student.DOB);
-
+        printf("\nEnter first name :");
+        scanf("%s", input_student.first_name);
+        printf("\nEnter last name :");
+        scanf("%s", input_student.last_name);
         fflush(stdin);
+        printf("\nEnter your date of birth in  DD/MM/YYYY:");
+        printf("\nEnter day: ");
+        scanf("%d",&input_student.DOB[0]);
+        printf("\nEnter month: ");
+        scanf("%d",&input_student.DOB[1]);
+        printf("\nEnter year: ");
+        scanf("%d",&input_student.DOB[2]);
 
-        printf("\n\t\t\tEnter  subject name :");
-        scanf("%s",input_student.subject);
-        printf("\n\t\t\tEnter  %s grade :", input_student.subject);
-        scanf("%d", &input_student.marks[0]);
 
-        printf("\n\t\t\tDo you want to continue adding new subject(y/Y) :");
-        scanf("%s", is_continue);
-        while (is_continue != "Y"||is_continue !="y")
+        printf("\nEnter how many subjects you want :");
+        scanf("%d", &no_of_sub);
+        for (i = 0; i < no_of_sub; i++)
         {
-        add_new_sub:
-            printf("\n\t\t\tEnter  subject name :");
-            scanf("%s",input_student.subject);
-            printf("\n\t\t\tEnter  %s grade :", input_student.subject);
-            scanf("%d", &input_student.marks[sub_counter]);
-            printf("\n\t\t\tDo you want to continue adding new subject(y/Y) :");
-            scanf("%s", is_continue);
-    
-            if (is_continue =="Y"||is_continue =="y")
-            {
-                sub_counter++;
-            }
-            else
-            {
-            reask:
-                printf("\n\t\t\tAre you sure you want to exit(y/n):");
-                scanf("%s", is_continue);
-                
-                if (is_continue == "Y"||is_continue == "y")
-                {
-                    break;
-                }
-                else if (is_continue == "N"||is_continue == "n")
-                {
-                    goto add_new_sub;
-                }
-                else
-                {
-                    printf("\n\t\t\tPlease press Y or N. ");
-                    goto reask;
-                }
-            }
+            printf("\nEnter  subject name :");
+            scanf("%s", input_student.subject[i]);
+            printf("\nEnter  %s grade :", input_student.subject[i]);
+            scanf("%d", &input_student.marks[i]);
         }
-
-        sub_counter = 0;
-        printf("\n\t\t\t-------------------------------\n");
+        printf("\n -------------------------------\n");
         fflush(stdin);
 
         while (fread(&read_student, sizeof(struct Student), 1, file_ptr) > 0)
@@ -98,10 +70,10 @@ void addstudent()
         {
             fwrite(&input_student, sizeof(struct Student), 1, file_ptr);
         }
-        
-        printf("\n\t\t\tFILE HAS BEEN SUCCESFULLY ADDED");
+
+        printf("\nFILE HAS BEEN SUCCESFULLY ADDED");
         fclose(file_ptr);
-        printf("\t\t\tDo you want to add another record?(y\n): ");
+        printf("\nDo you want to add another record?(y\n): ");
         scanf("%s", &ch);
 
     } while (ch == 'y' || ch == 'Y');
@@ -110,30 +82,30 @@ void addstudent()
 void viewrecord()
 {
     FILE *file_ptr;
-    int length;
+    int no_of_sub;
     int i;
 
-    file_ptr = fopen("grading_system/app/student_info.txt", "r");
+    file_ptr = fopen("resources/student_info.txt", "r");
     if (file_ptr == NULL)
     {
-        printf("\n\t\tFILE DOESN'T EXIST\n");
+        printf("\nFILE DOESN'T EXIST\n");
         exit(0);
     }
     struct Student read_student;
-    printf("\t\t\t =======Student Records======\n\n\n ");
-    printf("\t\t\t\t-------------------------------------------\n\n");
+    printf("\n=======Student Records======\n\n\n ");
+    printf("\n -------------------------------------------\n\n");
     while (fread(&read_student, sizeof(struct Student), 1, file_ptr) > 0)
     {
-        printf("\n\t\t\t Student symbol no : %d ", read_student.symbol_no);
-        printf("\n\t\t\tStudent name : %s %s", read_student.first_name, read_student.last_name);
-        printf("\n\t\t\t Student : %s ", read_student.DOB);
-        length = strlen(read_student.subject);
-        for (i = 0; i = length; i++)
+        no_of_sub=read_student.no_of_sub;
+        printf("\nStudent symbol no : %d ", read_student.symbol_no);
+        printf("\nStudent name : %s %s", read_student.first_name, read_student.last_name);
+        printf("\nStudent Date of birth : %d/%d/%d", read_student.DOB[0],read_student.DOB[1],read_student.DOB[2]);
+        for (i = 0; i<no_of_sub; i++)
         {
-            printf("\n\t\t\t Subject : %s ", read_student.subject);
-            printf("\n\t\t\t Subject marks: %d", read_student.marks[i]);
+            printf("\nSubject : %s ", read_student.subject[i]);
+            printf("\nSubject marks: %d", read_student.marks[i]);
         }
-        printf("\n\t\t\t-------------------------------\n");
+        printf("\n   -------------------------------\n");
     }
     fclose(file_ptr);
     getchar();
@@ -146,15 +118,15 @@ void menu()
     while (1)
     {
 
-        printf("\t\t\t=======STUDENT DATABASE======= ");
-        printf("\n\n\n\t\t\t 1.Add Student Record\n ");
-        printf("\t\t\t 2.View Student Record\n ");
-        printf("\t\t\t 3.Search Student Record\n ");
-        printf("\t\t\t 4.Delete Student Record\n ");
-        printf("\t\t\t 5.Calculate Student Record\n ");
-        printf("\t\t\t 6.Exit\n ");
-        printf("\t\t ------------------------------------------------------\n ");
-        printf("\t\t\t Enter your choice \n ");
+        printf("   =======STUDENT DATABASE======= ");
+        printf("\n\n\n    1.Add Student Record\n ");
+        printf("    2.View Student Record\n ");
+        printf("    3.Search Student Record\n ");
+        printf("    4.Delete Student Record\n ");
+        printf("    5.Calculate Student Record\n ");
+        printf("    6.Exit\n ");
+        printf("   ------------------------------------------------------\n ");
+        printf("    Enter your choice \n ");
         scanf("%d", &choice);
         switch (choice)
         {
@@ -162,25 +134,25 @@ void menu()
             addstudent();
             getchar();
 
-        break;
+            break;
         case 2:
             viewrecord();
             getchar();
             break;
-        // case 3:
-        //     searchs();
-        //     getchar();
-        //     break;
-        // case 4:
-        //     delete ();
-        //     getchar();
-        //     break;
-        // case 5:
-        //     calculate();
-        //     getchar();
-        //     break;
-        // case 6:
-           exit(0);
+            // case 3:
+            //     searchs();
+            //     getchar();
+            //     break;
+            // case 4:
+            //     delete ();
+            //     getchar();
+            //     break;
+            // case 5:
+            //     calculate();
+            //     getchar();
+            //     break;
+            // case 6:
+            exit(0);
             break;
             getchar();
         }
