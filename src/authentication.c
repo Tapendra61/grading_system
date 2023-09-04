@@ -14,7 +14,6 @@ void entry() {
 	printf("2. Register\n");
 	printf("3. Exit\n");
 	scanf("%d", &selected_option);
-
 	switch(selected_option) {
 		case 1:
 			printf("logging in");
@@ -62,6 +61,7 @@ void account_register() {
 	User user;
 	char user_name[31];
 	char password[31];
+	unsigned char* hashed_password;
 	FILE* user_data;
 
 	system("cls");
@@ -100,8 +100,16 @@ void account_register() {
 		exit_program(1);
 	}
 
-	//---TODO--- Generate Hash of the password and store that instead of plain password
-	strcpy(user.password_hash, password);
+	//Generate Hash of the password and store that instead of plain password
+	hashed_password = password_hash(password);
+	if(hashed_password != NULL) {
+		memcpy(user.password_hash, hashed_password, SHA512_DIGEST_LENGTH);
+		printf("\n%s\n%s", hashed_password, user.password_hash);
+		free(hashed_password);
+	}else {
+		printf("Authentication.c: line %d hashed_password is null.", __LINE__);
+	}
+
 	if(is_file_empty(user_data)) {
 		fwrite(&user, sizeof(User), 1, user_data);
 	}
