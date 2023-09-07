@@ -1,8 +1,52 @@
-
-#include "stdlib.h"
-#include "string.h"
 #include "../include/admin.h"
+void menu()
+{
+    system("cls");
+    int choice;
+    printf("=======STUDENT DATABASE======= ");
+    printf("\n1.Add Student Record\n");
+    printf("2.View Student Record\n");
+    printf("3.Search Student Record\n");
+    printf("4.Delete Student Record\n");
+    printf("5.Edit Student Record\n");
+    printf("6.Exit\n");
+    printf("------------------------------------\n");
+    re_choice:
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+    switch (choice)
+    {
+        case 1:
+            addstudent();
+            menu();
+        break;
 
+        case 2:
+            viewrecord();
+        break;
+
+        case 3:
+            search();
+        break;
+            // case 4:
+            //     delete ();
+            //     getchar();
+            //     break;
+            // case 5:
+            //     calculate();
+            //     getchar();
+            //     break;
+        case 6:
+            exit(0);
+        break;
+
+        default:
+            printf("\nInvalid Choice");
+            Sleep(1000);
+            menu();
+        break;
+    }
+}
 void addstudent()
 {
     char ch;
@@ -24,81 +68,72 @@ void addstudent()
         exit(0);
     }
 
-    do
+    printf("\n=======Add Student input_student======\n");
+    printf("\nEnter first name: ");
+    scanf("%s", input_student.first_name);
+    fflush(stdin);
+    printf("Enter last name: ");
+    scanf("%s", input_student.last_name);
+    fflush(stdin);
+    printf("\nEnter your symbol no: ");
+    scanf("%d", &input_student.symbol_no);
+    printf("\nEnter your date of birth in  DD/MM/YYYY: ");
+    printf("\nEnter day: ");
+    scanf("%d", &input_student.DOB[0]);
+    printf("Enter month: ");
+    scanf("%d", &input_student.DOB[1]);
+    printf("Enter year: ");
+    scanf("%d", &input_student.DOB[2]);
+    printf("\nEnter how many subjects you want: ");
+    scanf("%d", &no_of_sub);
+    
+    for (i = 0; i < no_of_sub; i++)
     {
-        printf("\n=======Add Student input_student======\n\n\n ");
-        printf("\nEnter your symbol no :");
-        scanf("%d", &input_student.symbol_no);
         fflush(stdin);
-        printf("\nEnter first name :");
-        scanf("%s", input_student.first_name);
-        printf("\nEnter last name :");
-        scanf("%s", input_student.last_name);
+        printf("\nEnter subject name: ");
+        scanf("%s", input_student.subject[i]);
         fflush(stdin);
-        printf("\nEnter your date of birth in  DD/MM/YYYY:");
-        printf("\nEnter day: ");
-        scanf("%d", &input_student.DOB[0]);
-        printf("\nEnter month: ");
-        scanf("%d", &input_student.DOB[1]);
-        printf("\nEnter year: ");
-        scanf("%d", &input_student.DOB[2]);
-
-        printf("\nEnter how many subjects you want :");
-        scanf("%d", &no_of_sub);
-        for (i = 0; i < no_of_sub; i++)
+        printf("Enter  marks for %s: ", input_student.subject[i]);
+        scanf("%d", &input_student.marks[i]);
+    }
+    while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
+    {
+        if (read_student.symbol_no == input_student.symbol_no)
         {
-            printf("\nEnter subject name :");
-            scanf("%s", input_student.subject[i]);
-            printf("\nEnter  %s grade :", input_student.subject[i]);
-            scanf("%d", &input_student.marks[i]);
+            is_student_present = 1;
+            break;
         }
-        printf("\n-------------------------------\n");
-        fflush(stdin);
-
-        while (fread(&read_student, sizeof(struct Student), 1, file_ptr) > 0)
-        {
-            if (read_student.symbol_no == input_student.symbol_no)
-            {
-                is_student_present = 1;
-                break;
-            }
-        }
-
-        if (is_student_present == 0)
-        {
-            fwrite(&input_student, sizeof(struct Student), 1, file_ptr);
-        }
-
-        printf("\nFILE HAS BEEN SUCCESFULLY ADDED");
-        fclose(file_ptr);
-        printf("\nDo you want to add another record?(y\n): ");
-        scanf("%s", &ch);
-
-    } while (ch == 'y' || ch == 'Y');
+    }
+    if (!is_student_present)
+    {
+        fwrite(&input_student, sizeof(struct Student), 1, file_ptr);
+    }
+    printf("\nFILE HAS BEEN SUCCESFULLY ADDED");
+    fclose(file_ptr);
+    Sleep(1000);
 }
 
 void viewrecord()
 {
     FILE *file_ptr;
-    int no_of_sub;
     int i;
 
     file_ptr = fopen("resources/student_info.txt", "r");
     if (file_ptr == NULL)
     {
         printf("\nFILE DOESN'T EXIST\n");
+        getchar();
         exit(0);
     }
     struct Student read_student;
-    printf("\n=======Student Records======\n\n\n ");
-    printf("\n -------------------------------------------\n\n");
-    while (fread(&read_student, sizeof(struct Student), 1, file_ptr) > 0)
+    printf("\n=======Student Records======\n");
+    printf("\n --------------------------------\n");
+    while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
     {
-        no_of_sub = read_student.no_of_sub;
         printf("\nStudent symbol no : %d ", read_student.symbol_no);
         printf("\nStudent name : %s  %s", read_student.first_name, read_student.last_name);
         printf("\nStudent Date of birth : %d/%d/%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
-        for (i = 0; i < no_of_sub; i++)
+        for (i = 0; i < read_student.no_of_sub; i++)
         {
             printf("\nSubject : %s ", read_student.subject[i]);
             printf("\nSubject marks: %d", read_student.marks[i]);
@@ -109,53 +144,7 @@ void viewrecord()
     getchar();
 }
 
-void menu()
-{
-    int choice;
-    printf("=======STUDENT DATABASE======= ");
-    printf("\n\n\n1.Add Student Record\n ");
-    printf("2.View Student Record\n ");
-    printf("3.Search Student Record\n ");
-    printf("4.Delete Student Record\n ");
-    printf("5.Calculate Student Record\n ");
-    printf("6.Exit\n ");
-    printf("------------------------------------------------------\n ");
-    re_choice:
-    printf("Enter your choice\n ");
-    scanf("%d", &choice);
-    if(!(choice >= 1 && choice <= 6)) {
-        printf("Invalid choice. Try again!");
-        goto re_choice;
-    }
 
-    switch (choice)
-    {
-        case 1:
-            addstudent();
-            getchar();
-            break;
-        case 2:
-            viewrecord();
-            getchar();
-            break;
-            case 3:
-                search();
-                getchar();
-                break;
-            // case 4:
-            //     delete ();
-            //     getchar();
-            //     break;
-            // case 5:
-            //     calculate();
-            //     getchar();
-            //     break;
-        case 6:
-            exit(0);
-        break;
-        getchar();
-    }
-}
 void search()
 {
     int symbol_no = 0, found_student= 0;

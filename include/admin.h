@@ -1,25 +1,27 @@
 #ifndef ADMIN_H
 #define ADMIN_H
-
-#include <stdio.h>
-#include <stdlib.h>
+#include "string.h"
+#include "stdio.h"
+#include "stdlib.h"
+#include "Windows.h"
 
 struct Student
 {
     char first_name[20];
     char last_name[20];
-    int symbol_no;
-    char grade[2];
+    unsigned int symbol_no;
     int DOB[3];
-    char subject[8][30];
     int no_of_sub;
-    int marks[20];
+    char subject[8][30];
+    int marks[8];
+    float gpa[8];
+    char grade[2];
     float cgpa;
 };
 
-void viewtrecord();
-void addstudent();
 void menu();
+void addstudent();
+void viewrecord();
 void search();
 
 #endif
