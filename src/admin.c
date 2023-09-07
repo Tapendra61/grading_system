@@ -139,7 +139,7 @@ void menu()
             getchar();
             break;
             case 3:
-                searchs();
+                search();
                 getchar();
                 break;
             // case 4:
@@ -156,7 +156,7 @@ void menu()
         getchar();
     }
 }
-void searchs()
+void search()
 {
     int symbol_no = 0, found_student= 0;
     char first_name[20];

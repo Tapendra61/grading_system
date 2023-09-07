@@ -20,5 +20,6 @@ struct Student
 void viewtrecord();
 void addstudent();
 void menu();
+void search();
 
 #endif
