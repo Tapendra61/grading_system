@@ -12,20 +12,17 @@ int is_file_empty(FILE* file) {
 	return (initial_position == end_position);
 }
 
+//---TODO---
+//update the hashing function to use OpenSSL 3.0 non-depricated version
 unsigned char* password_hash(char password[]) {
 	unsigned char* hashed_password;
-	hashed_password = (unsigned char*) malloc(SHA512_DIGEST_LENGTH * sizeof(unsigned char));
-	if(hashed_password == NULL) {
-		printf("\nFailed to allocate memory: hashed_password!");
-		printf("\nEnter any key to continue...");
-		getchar();
+	
+	EVP_MD_CTX* mdctx = EVP_MD_CTX_new();
+
+	if(mdctx == NULL) {
+		printf("Unable to allocate memory for message digest ctx.");
 		return NULL;
 	}
-
-	SHA512_CTX sha512;
-	SHA512_Init(&sha512);
-	SHA512_Update(&sha512, password, strlen(password));
-	SHA512_Final(hashed_password, &sha512);
 
 	return hashed_password;
 }
