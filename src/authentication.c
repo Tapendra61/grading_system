@@ -1,10 +1,4 @@
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
-#include "ctype.h"
-#include "Windows.h"
 #include "authentication.h"
-#include "utility.h"
 
 void entry() {
 	system("cls");

@@ -1,6 +1,13 @@
 #ifndef AUTHENTICATION_H
 #define AUTHENTICATION_H
 
+#include "stdio.h"
+#include "stdlib.h"
+#include "string.h"
+#include "ctype.h"
+#include "Windows.h"
+#include "utility.h"
+
 typedef struct{
 	char username[31];
 	unsigned char password_hash[64];
