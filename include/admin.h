@@ -4,6 +4,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "Windows.h"
+#include "ctype.h"
 
 struct Student
 {
@@ -23,5 +24,7 @@ void menu();
 void addstudent();
 void viewrecord();
 void search();
+
+void check_DOB(int day,int month,int year);
 
 #endif

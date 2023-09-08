@@ -49,13 +49,10 @@ void menu()
 }
 void addstudent()
 {
-    char ch;
     char is_continue[1];
     FILE *file_ptr;
     int sub_counter = 1;
     int is_student_present = 0;
-    int no_of_sub = 0;
-    int i = 0;
 
     struct Student input_student;
     struct Student read_student;
@@ -75,8 +72,19 @@ void addstudent()
     printf("Enter last name: ");
     scanf("%s", input_student.last_name);
     fflush(stdin);
+    again_symbol:
     printf("\nEnter your symbol no: ");
     scanf("%d", &input_student.symbol_no);
+    while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
+    {
+        if (read_student.symbol_no == input_student.symbol_no)
+        {
+            is_student_present = 1;
+            printf("\nStudent with %d symbol number already exists.\n",input_student.symbol_no);
+            goto again_symbol;
+            menu();
+        }
+    }
     printf("\nEnter your date of birth in  DD/MM/YYYY: ");
     printf("\nEnter day: ");
     scanf("%d", &input_student.DOB[0]);
@@ -84,37 +92,44 @@ void addstudent()
     scanf("%d", &input_student.DOB[1]);
     printf("Enter year: ");
     scanf("%d", &input_student.DOB[2]);
+    check_DOB(input_student.DOB[0],input_student.DOB[1],input_student.DOB[2]);
+    again_subject:
     printf("\nEnter how many subjects you want: ");
-    scanf("%d", &no_of_sub);
+    scanf("%d", &input_student.no_of_sub);
+    if(input_student.no_of_sub>8)
+    {
+        printf("subjects cannot be more than 8.");
+        goto again_subject;
+    }
     
-    for (i = 0; i < no_of_sub; i++)
+    for (int i = 0; i <input_student.no_of_sub; i++)
     {
         fflush(stdin);
         printf("\nEnter subject name: ");
         scanf("%s", input_student.subject[i]);
         fflush(stdin);
+        again_marks:
         printf("Enter  marks for %s: ", input_student.subject[i]);
         scanf("%d", &input_student.marks[i]);
-    }
-    while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
-    {
-        if (read_student.symbol_no == input_student.symbol_no)
+        if(input_student.marks[i]<0 || input_student.marks[i]>100)
         {
-            is_student_present = 1;
-            break;
+            printf("Invalid input for marks.");
+            goto again_marks;
         }
     }
+  
     if (!is_student_present)
     {
         fwrite(&input_student, sizeof(struct Student), 1, file_ptr);
     }
     printf("\nFILE HAS BEEN SUCCESFULLY ADDED");
     fclose(file_ptr);
-    Sleep(1000);
+    Sleep(3000);
 }
 
 void viewrecord()
 {
+    struct Student read_student;
     FILE *file_ptr;
     int i;
 
@@ -125,9 +140,9 @@ void viewrecord()
         getchar();
         exit(0);
     }
-    struct Student read_student;
-    printf("\n=======Student Records======\n");
-    printf("\n --------------------------------\n");
+   
+    printf("\n=======Student Record======\n");
+    // printf("\n --------------------------------\n");
     while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
     {
         printf("\nStudent symbol no : %d ", read_student.symbol_no);
@@ -135,7 +150,7 @@ void viewrecord()
         printf("\nStudent Date of birth : %d/%d/%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
         for (i = 0; i < read_student.no_of_sub; i++)
         {
-            printf("\nSubject : %s ", read_student.subject[i]);
+            printf("\nSubject: %s ", read_student.subject[i]);
             printf("\nSubject marks: %d", read_student.marks[i]);
         }
         printf("\n-------------------------------\n");
@@ -147,8 +162,8 @@ void viewrecord()
 
 void search()
 {
+    struct Student read_student;
     int symbol_no = 0, found_student= 0;
-    char first_name[20];
     FILE *file_ptr;
     int no_of_sub;
     int i;
@@ -158,20 +173,18 @@ void search()
         printf("\nFILE DOESN'T EXIST\n");
         exit(0);
     }
-    struct Student read_student;
-    printf("\n ======= Search Student ======\n\n\n ");
-    find:
-    printf("\nEnter first name:");
-    scanf("%s",first_name);
-    printf("\nEnter symbol :");
-    scanf("%d", &symbol_no);
-
-    while (fread(&read_student, sizeof(struct Student), 1, file_ptr) > 0)
     
-    {   
-        if(strlen(first_name)>0&&symbol_no==0)
-        {
-            if(strcmp(read_student.first_name,first_name)==0)
+    printf("\n\n ======= Search Records ======\n\n");
+    //printf("\nEnter first name:");
+    //scanf("%s",first_name);
+    find:
+    printf("\nEnter symbol number: ");
+    scanf("%d", &symbol_no);
+    if(symbol_no>999)
+    {
+         while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
+        {   
+           /* if(strcmp(read_student.first_name,first_name)==0)
             {
                 found_student = 1;
             printf("\nStudent symbol no : %d ", read_student.symbol_no);
@@ -184,33 +197,60 @@ void search()
             }
 
             printf("\n-----------------------------------\n");
-            }
-        }
-        else if (read_student.symbol_no == symbol_no)
-        {
-            found_student = 1;
-            printf("\nStudent symbol no : %d ", read_student.symbol_no);
-            printf("\nStudent name : %s  %s", read_student.first_name, read_student.last_name);
-            printf("\nStudent Date of birth : %d/%d/%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
-            for (i = 0; i < no_of_sub; i++)
-            {
-                printf("\nSubject : %s ", read_student.subject[i]);
-                printf("\nSubject marks: %d", read_student.marks[i]);
-            }
-
-            printf("\n-----------------------------------\n");
-        }
-        else
-        {
-            printf("\nPlease search by first name or symbol no");
-            goto find;
-        }
-    }
-    if (found_student = 0)
-    {
-        printf("\n\t\t\tRecords not found_student :");
+            }*/
         
+            if (read_student.symbol_no == symbol_no)
+            {
+                found_student = 1;
+                printf("\nStudent symbol number: %d ", read_student.symbol_no);
+                printf("\nStudent name: %s  %s", read_student.first_name, read_student.last_name);
+                printf("\nStudent Date of birth: %d/%d/%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
+                printf("\n no of subjects = %d",read_student.no_of_sub);
+                for (i = 0; i <read_student.no_of_sub; i++)
+                {
+                    printf("\nSubject: %s ", read_student.subject[i]);
+                    printf("\nSubject marks: %d", read_student.marks[i]);
+                }
+
+                printf("\n-----------------------------------\n");
+            }
+        
+       
+        }
+        if (found_student == 0)
+        {
+            printf("\nRecord not found.");
+        
+        }
+        
+    }
+    else
+    {
+        printf("\nPlease enter a valid symbol number.");
+        goto find;
     }
     fclose(file_ptr);
     getchar();
+}
+
+void check_DOB(int day,int month,int year)
+{
+    if(day<1 || day>32)
+    {
+        printf("\n Invalid input for day.");
+        Sleep(2000);
+        menu();
+    }
+    else if ( month<1 || month>12)
+    {
+        printf("\n Invalid input for month.");
+        Sleep(2000);
+        menu();
+    }
+    else if(year>2065)
+    {
+        printf("\n Invalid input for age.");
+        Sleep(2000);
+        menu();
+    }
 }
