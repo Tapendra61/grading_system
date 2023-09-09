@@ -55,16 +55,30 @@ void account_register() {
 	User user;
 	char user_name[31];
 	char password[31];
-	unsigned char* hashed_password;
 	FILE* user_data;
+	int user_exists;
+	user_data = fopen("resources/user_data.DAT", "r+");
+	if(user_data == NULL) {
+		printf("Could not read the user_data file or could not create the file.");
+		Sleep(2000);
+		exit_program(1);
+	}
 
 	system("cls");
 	printf("--------Register Account-------\n");
 
 	re_username:
 	printf("Enter a new login ID: \n");
-	scanf("%[^\n]", user_name);
+	scanf("%s", user_name);
 	fflush(stdin);
+
+	user_exists = user_already_registered(user_name, user_data);
+	if(user_exists) {
+		printf("The user id: %s already exists! Press enter key to try again...", user_name);
+		user_exists = 0;
+		getchar();
+		goto re_username;
+	}
 
 	if(!is_password_user_valid(user_name)){
 		printf("Username can only contain AlphaNumeric values and should not exceed 30 characters. Try again!\n");
@@ -77,7 +91,7 @@ void account_register() {
 
 	re_password:
 	printf("Enter a new password: ");
-	scanf("%[^\n]", password);
+	scanf("%s", password);
 	fflush(stdin);
 
 	if(!is_password_user_valid(password)){
@@ -87,27 +101,15 @@ void account_register() {
 		goto re_password;
 	}
 
-	user_data = fopen("resources/user_data.DAT", "r+");
-	if(user_data == NULL) {
-		printf("Could not read the user_data file or could not create the file.");
-		Sleep(2000);
-		exit_program(1);
-	}
-
-	//Generate Hash of the password and store that instead of plain password
-	hashed_password = password_hash(password);
-	if(hashed_password != NULL) {
-		memcpy(user.password_hash, hashed_password, SHA512_DIGEST_LENGTH);
-		printf("\n%s\n%s", hashed_password, user.password_hash);
-		free(hashed_password);
-	}else {
-		printf("Authentication.c: line %d hashed_password is null.", __LINE__);
-	}
-
+	User read_user;
+	strcpy(user.password_hash, password);
 	if(is_file_empty(user_data)) {
 		fwrite(&user, sizeof(User), 1, user_data);
 	}
-	//
+	else {
+		fseek(user_data, 0, SEEK_END);
+		fwrite(&user, sizeof(User), 1, user_data);
+	}
 }
 
 void exit_program(int error_code) {
@@ -125,6 +127,18 @@ int is_password_user_valid(char password_user[]){
 		}
 	}
 	return 1;
+}
+
+int user_already_registered(char username[], FILE* file) {
+	int user_exists = 0;
+	User read_user;
+	while(fread(&read_user, sizeof(User), 1, file)){
+		if(strcmp(read_user.username, username) == 0) {
+			user_exists = 1;
+			break;
+		}
+	}
+	return user_exists;
 }
 
 int login_validator(char username[], char password[]) {

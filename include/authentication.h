@@ -18,6 +18,7 @@ void login();
 void account_register();
 void exit_program(int error_code);
 int is_password_user_valid(char password_user[]);
+int user_already_registered(char username[], FILE* file);
 int login_validator(char username[], char password[]);
 
 #endif
