@@ -24,7 +24,7 @@ void menu();
 void addstudent();
 void viewrecord();
 void search();
-
-void check_DOB(int day,int month,int year);
+int name_is_valid(char[],char[]);
+int check_DOB(int*);
 
 #endif

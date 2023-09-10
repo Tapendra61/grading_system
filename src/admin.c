@@ -22,6 +22,7 @@ void menu()
         break;
 
         case 2:
+			fflush(stdin);
             viewrecord();
         break;
 
@@ -53,6 +54,8 @@ void addstudent()
     FILE *file_ptr;
     int sub_counter = 1;
     int is_student_present = 0;
+    int date_is_valid;
+    int name_valid;
 
     struct Student input_student;
     struct Student read_student;
@@ -66,12 +69,17 @@ void addstudent()
     }
 
     printf("\n=======Add Student input_student======\n");
+    again_name:
     printf("\nEnter first name: ");
     scanf("%s", input_student.first_name);
     fflush(stdin);
     printf("Enter last name: ");
     scanf("%s", input_student.last_name);
     fflush(stdin);
+    name_valid = name_is_valid(input_student.first_name,input_student.last_name);
+    if(!name_valid){
+        goto again_name;
+    }
     again_symbol:
     printf("\nEnter your symbol no: ");
     scanf("%d", &input_student.symbol_no);
@@ -85,6 +93,7 @@ void addstudent()
             menu();
         }
     }
+    again_DOB:
     printf("\nEnter your date of birth in  DD/MM/YYYY: ");
     printf("\nEnter day: ");
     scanf("%d", &input_student.DOB[0]);
@@ -92,13 +101,17 @@ void addstudent()
     scanf("%d", &input_student.DOB[1]);
     printf("Enter year: ");
     scanf("%d", &input_student.DOB[2]);
-    check_DOB(input_student.DOB[0],input_student.DOB[1],input_student.DOB[2]);
+    date_is_valid=check_DOB( input_student.DOB);
+    if(!date_is_valid)
+    {
+        goto again_DOB;
+    }
     again_subject:
     printf("\nEnter how many subjects you want: ");
     scanf("%d", &input_student.no_of_sub);
     if(input_student.no_of_sub>8)
     {
-        printf("subjects cannot be more than 8.");
+        printf("\nsubjects cannot be more than 8.");
         goto again_subject;
     }
     
@@ -109,11 +122,11 @@ void addstudent()
         scanf("%s", input_student.subject[i]);
         fflush(stdin);
         again_marks:
-        printf("Enter  marks for %s: ", input_student.subject[i]);
+        printf("\nEnter  marks for %s: ", input_student.subject[i]);
         scanf("%d", &input_student.marks[i]);
         if(input_student.marks[i]<0 || input_student.marks[i]>100)
         {
-            printf("Invalid input for marks.");
+            printf("\nInvalid input for marks.");
             goto again_marks;
         }
     }
@@ -129,6 +142,7 @@ void addstudent()
 
 void viewrecord()
 {
+	char quit;
     struct Student read_student;
     FILE *file_ptr;
     int i;
@@ -142,7 +156,7 @@ void viewrecord()
     }
    
     printf("\n=======Student Record======\n");
-    // printf("\n --------------------------------\n");
+  
     while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
     {
         printf("\nStudent symbol no : %d ", read_student.symbol_no);
@@ -156,7 +170,24 @@ void viewrecord()
         printf("\n-------------------------------\n");
     }
     fclose(file_ptr);
-    getchar();
+	again_quit:
+	printf("\n Enter Y to exit the program and N to go back to menu: ");
+    quit=getchar();
+	fflush(stdin);
+	tolower(quit);
+	switch (quit)
+	{
+		case 'y':
+			exit(0);
+		break;
+		case 'n':
+			menu();
+		break;
+		default:
+			printf("invalid option");
+			goto again_quit;
+		break;
+	}
 }
 
 
@@ -233,24 +264,47 @@ void search()
     getchar();
 }
 
-void check_DOB(int day,int month,int year)
+int check_DOB(int* date)
 {
-    if(day<1 || day>32)
+    if(*date<1 || *date>32)
     {
         printf("\n Invalid input for day.");
         Sleep(2000);
-        menu();
+        return 0;
     }
-    else if ( month<1 || month>12)
+    else if (*(date+1)<1 || *(date+1)>12)
     {
         printf("\n Invalid input for month.");
         Sleep(2000);
-        menu();
+        return 0;
     }
-    else if(year>2065)
+    else if(*(date+2)<2050||*(date+2)>2065)
     {
         printf("\n Invalid input for age.");
         Sleep(2000);
-        menu();
+       return 0;
     }
+    return 1;
+}
+int name_is_valid(char firstname[], char lastname[]){
+    for(int i=0; i<strlen(firstname);i++)
+    {
+            if(!isalpha(firstname[i]))
+            {
+                printf("\nInvalid input! Only alphabets are accepted.\n");
+                return 0;
+            }
+            
+    }
+    for(int i=0; i<strlen(lastname);i++)
+    {
+            if(!isalpha(lastname[i]))
+            {
+                printf("\nInvalid input! Only alphabets are accepted.\n");
+                return 0;
+            }
+            
+    }
+    return 1;
+    
 }
