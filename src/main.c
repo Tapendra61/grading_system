@@ -1,5 +1,6 @@
-#include"../include/admin.h"
-int main() 
+#include"../include/admin.h" 
+#include"../include/calculator.h"
+int main()
 {
 	return 0;
 }
