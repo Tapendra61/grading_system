@@ -72,6 +72,7 @@ void account_register() {
 	scanf("%s", user_name);
 	fflush(stdin);
 
+	//Check if the user is already registered
 	user_exists = user_already_registered(user_name, user_data);
 	if(user_exists) {
 		printf("The user id: %s already exists! Press enter key to try again...", user_name);
@@ -80,20 +81,22 @@ void account_register() {
 		goto re_username;
 	}
 
+	//Check if username is valid
 	if(!is_password_user_valid(user_name)){
 		printf("Username can only contain AlphaNumeric values and should not exceed 30 characters. Try again!\n");
 		memset(user_name, 0, sizeof(user_name));
 		Sleep(1500);
 		goto re_username;
 	}
-
 	strcpy(user.username, user_name);
 
+	//Take password input from user
 	re_password:
 	printf("Enter a new password: ");
 	scanf("%s", password);
 	fflush(stdin);
 
+	//Check if password is valid alpha numeric
 	if(!is_password_user_valid(password)){
 		printf("Password can only contain AlphaNumeric values and should not exceed 30 characters. Try again!\n");
 		memset(password, 0, sizeof(password));
@@ -144,4 +147,3 @@ int user_already_registered(char username[], FILE* file) {
 int login_validator(char username[], char password[]) {
 	return 0;
 }
-
