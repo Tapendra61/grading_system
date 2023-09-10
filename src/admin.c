@@ -14,6 +14,7 @@ void menu()
     re_choice:
     printf("Enter your choice: ");
     scanf("%d", &choice);
+	fflush(stdin);
     switch (choice)
     {
         case 1:
