@@ -123,13 +123,15 @@ void addstudent()
         scanf("%s", input_student.subject[i]);
         fflush(stdin);
         again_marks:
-        printf("\nEnter  marks for %s: ", input_student.subject[i]);
+        printf("Enter  marks for %s: ", input_student.subject[i]);
         scanf("%d", &input_student.marks[i]);
         if(input_student.marks[i]<0 || input_student.marks[i]>100)
         {
             printf("\nInvalid input for marks.");
             goto again_marks;
         }
+        input_student.gpa[i]=calculate_gpa(input_student.marks[i]);
+        strcpy(input_student.grade[i],calculate_grade(input_student.marks[i]));
     }
   
     if (!is_student_present)
@@ -207,8 +209,6 @@ void search()
     }
     
     printf("\n\n ======= Search Records ======\n\n");
-    //printf("\nEnter first name:");
-    //scanf("%s",first_name);
     find:
     printf("\nEnter symbol number: ");
     scanf("%d", &symbol_no);
@@ -216,21 +216,6 @@ void search()
     {
          while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
         {   
-           /* if(strcmp(read_student.first_name,first_name)==0)
-            {
-                found_student = 1;
-            printf("\nStudent symbol no : %d ", read_student.symbol_no);
-            printf("\nStudent name : %s  %s", read_student.first_name, read_student.last_name);
-            printf("\nStudent Date of birth : %d/%d/%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
-            for (i = 0; i < no_of_sub; i++)
-            {
-                printf("\nSubject : %s ", read_student.subject[i]);
-                printf("\nSubject marks: %d", read_student.marks[i]);
-            }
-
-            printf("\n-----------------------------------\n");
-            }*/
-        
             if (read_student.symbol_no == symbol_no)
             {
                 found_student = 1;
@@ -242,6 +227,9 @@ void search()
                 {
                     printf("\nSubject: %s ", read_student.subject[i]);
                     printf("\nSubject marks: %d", read_student.marks[i]);
+                    printf("\nSubject GAP: %.2f",read_student.gpa[i]);
+                    printf("\nSubject Grade: %s",read_student.grade[i]);
+                    
                 }
 
                 printf("\n-----------------------------------\n");

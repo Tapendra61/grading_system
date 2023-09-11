@@ -16,23 +16,25 @@ float calculate_gpa(int marks)
     }
     
 }
-char grade_map[8][3]={"F","D","C","C+","B","B+","A","A+"};
+char grade_map[8][2]={"NG","D","C","C+","B","B+","A","A+"}; 
 char* calculate_grade(int marks)
 {
     char* grade;
     grade = (char*) malloc(2*sizeof(char));
-    int index;
+    int index=0;
     if(marks<=34)
     {
         strcpy(grade,grade_map[0]);
+        return grade;
     } 
     else if(marks==100) {
         strcpy(grade,grade_map[7]);
+        return grade;  
     }
     else{
         index=(marks/10)-2;
         strcpy(grade,grade_map[index]);
+        return grade;
     }
-    return grade;
 }
 

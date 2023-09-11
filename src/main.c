@@ -2,5 +2,8 @@
 #include"../include/calculator.h"
 int main()
 {
+	menu();
+	fflush(stdin);
+	getchar();
 	return 0;
 }

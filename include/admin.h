@@ -5,6 +5,7 @@
 #include "stdlib.h"
 #include "Windows.h"
 #include "ctype.h"
+#include "calculator.h"
 
 struct Student
 {
@@ -16,7 +17,7 @@ struct Student
     char subject[8][30];
     int marks[8];
     float gpa[8];
-    char grade[2];
+    char grade[8][2];
     float cgpa;
 };
 
