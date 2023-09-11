@@ -6,6 +6,7 @@
 #include "Windows.h"
 #include "ctype.h"
 #include "calculator.h"
+#include "modify.h"
 
 struct Student
 {

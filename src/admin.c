@@ -30,14 +30,14 @@ void menu()
         case 3:
             search();
         break;
-            // case 4:
-            //     delete ();
-            //     getchar();
-            //     break;
-            // case 5:
-            //     calculate();
-            //     getchar();
-            //     break;
+        case 4:
+            delete();
+            getchar();
+         break;
+        case 5:
+            modify();
+            getchar();
+        break;
         case 6:
             exit(0);
         break;
