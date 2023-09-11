@@ -1,10 +1,9 @@
 #include "stdio.h"
-#include"../include/util.h"
+#include"../include/student.h"
 
 int main() {
-	int a = 10;
-	int b = 20;
-	printf("%d", add_test(a, b));
+	view_record();
+	fflush(stdin);
 	getchar();
 	return 0;
 }
