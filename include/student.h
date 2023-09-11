@@ -9,7 +9,7 @@ struct Student
     int DOB[3];
     char subject[5][50];
     int marks[5];
-    char grade[5][2];
+    char grade[5][3];
     float gpa[5];
 };
 void write_data();
