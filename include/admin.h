@@ -18,7 +18,7 @@ struct Student
     char subject[8][30];
     int marks[8];
     float gpa[8];
-    char grade[8][2];
+    char grade[8][3];
     float cgpa;
 };
 
