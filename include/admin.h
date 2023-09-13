@@ -24,7 +24,7 @@ struct Student
 
 void menu();
 void addstudent();
-void viewrecord();
+void view_record();
 void search();
 int name_is_valid(char[],char[]);
 int check_DOB(int*);
