@@ -4,9 +4,7 @@
 #include "stdlib.h"
 #include "string.h"
 #include "windows.h"
-#include "openssl/evp.h"
 
-int is_file_empty(FILE* file);
-//unsigned char* password_hash(char password[]);
+int is_file_empty(FILE *file);
 
 #endif
