@@ -40,7 +40,7 @@ char *calculate_grade(int marks)
         return grade;
     }
 }
-float calculate_cgpa(int no_of_subjects, float gpa[]);
+float calculate_cgpa(int no_of_subjects, float gpa[])
 {
     float sum_gpa;
     for (int i = 0; i < no_of_subjects; i++)
