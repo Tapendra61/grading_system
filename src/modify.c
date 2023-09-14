@@ -22,7 +22,7 @@ void modify()
     scanf("%d", &symbol_no);
     if(symbol_no>999)
     {
-         while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
+        while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
         {   
             if (read_student.symbol_no == symbol_no)
             {
@@ -108,7 +108,7 @@ void delete()
     FILE *newfile_ptr;
     struct Student read_student;
     file_ptr = fopen("resources/student_info.txt", "rb");
-    newfile_ptr = fopen("resources/new_student_info.txt", "Wb");
+    newfile_ptr = fopen("resources/new_student_info.txt", "wb");
     if (file_ptr == NULL|| newfile_ptr == NULL )
     {
         fflush(stdin);
@@ -129,5 +129,6 @@ void delete()
     fclose(newfile_ptr);
     remove("resources/student_info.txt");
     rename("resources/new_student_info.txt","resources/student_info.txt");
+    printf("Removed entry with Symbol no: %d from the records.", input_id_to_remove);
     getchar();
 }
