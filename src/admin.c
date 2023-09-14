@@ -52,6 +52,7 @@ re_choice:
 void addstudent()
 {
     char is_continue[1];
+    char *grade;
     FILE *file_ptr;
     int sub_counter = 1;
     int is_student_present = 0;
@@ -132,7 +133,9 @@ again_subject:
             goto again_marks;
         }
         input_student.gpa[i] = calculate_gpa(input_student.marks[i]);
-        strcpy(input_student.grade[i], calculate_grade(input_student.marks[i]));
+        grade = calculate_grade(input_student.marks[i]);
+        strcpy(input_student.grade[i], grade);
+        free(grade);
     }
 
     if (!is_student_present)

@@ -26,7 +26,7 @@ void menu();
 void addstudent();
 void view_record();
 void search();
-int name_is_valid(char[],char[]);
-int check_DOB(int*);
+int name_is_valid(char[], char[]);
+int check_DOB(int *);
 
 #endif
