@@ -26,11 +26,11 @@ void view_student_record()
             printf("\n---------------------------------------------");
             printf("\n\nStudent name : %s %s", read_student.first_name, read_student.last_name);
             printf("\n\nDate of Birth: %d /%d /%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
-            for (i = 0; i < read_student; i++)
+            for (i = 0; i < read_student.no_of_sub; i++)
             {
                 printf("\n\n Subject: %s\t %d\t %f\t %s ", read_student.subject[i],read_student.marks[i],read_student.gpa[i],read_student.grade[i]);
             }
-            printf("\ncgpa:%f",read_student.cgpa);
+            printf("\n\ncgpa:%f",read_student.cgpa);
         }
         
     }
@@ -41,5 +41,5 @@ void view_student_record()
         fclose(student_info);
         goto re_symbol_no;
     }
-    fclose(dummy);
+    fclose(student_info);
 }

@@ -16,11 +16,11 @@ float calculate_gpa(int marks)
     }
     
 }
-char grade_map[8][2]={"NG","D","C","C+","B","B+","A","A+"}; 
+char grade_map[8][3]={"NG","D","C","C+","B","B+","A","A+"}; 
 char* calculate_grade(int marks)
 {
     char* grade;
-    grade = (char*) malloc(2*sizeof(char));
+    grade = (char*) malloc(3*sizeof(char));
     int index=0;
     if(marks<=34)
     {
