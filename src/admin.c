@@ -137,6 +137,7 @@ again_subject:
         strcpy(input_student.grade[i], grade);
         free(grade);
     }
+    input_student.cgpa = calculate_cgpa(input_student.no_of_sub, input_student.gpa);
 
     if (!is_student_present)
     {
@@ -166,14 +167,17 @@ void view_record()
 
     while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
     {
-        printf("\nStudent symbol no : %d ", read_student.symbol_no);
-        printf("\nStudent name : %s  %s", read_student.first_name, read_student.last_name);
-        printf("\nStudent Date of birth : %d/%d/%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
+        printf("\nStudent symbol no: %d ", read_student.symbol_no);
+        printf("\nStudent name: %s  %s", read_student.first_name, read_student.last_name);
+        printf("\nStudent Date of birth: %d/%d/%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
         for (i = 0; i < read_student.no_of_sub; i++)
         {
             printf("\nSubject: %s ", read_student.subject[i]);
             printf("\nSubject marks: %d", read_student.marks[i]);
+            printf("\nSubject GAP: %.2f", read_student.gpa[i]);
+            printf("\nSubject Grade: %s", read_student.grade[i]);
         }
+        printf("\nCGPA: %.2f", read_student.cgpa);
         printf("\n-------------------------------\n");
     }
     fclose(file_ptr);
@@ -217,6 +221,7 @@ re_symbol:
                 printf("\nSubject GAP: %.2f", read_student.gpa[i]);
                 printf("\nSubject Grade: %s", read_student.grade[i]);
             }
+            printf("\nCGPA: %.2f", read_student.cgpa);
             printf("\n-----------------------------------\n");
         }
     }
