@@ -18,7 +18,12 @@ void entry()
 
 	case 2:
 		printf("registering");
-		account_register();
+		if(account_registered()) {
+			entry();
+		}else {
+			printf("Failed to register account!!! Try again.");
+			entry();
+		}
 		break;
 
 	case 3:
@@ -52,7 +57,7 @@ void login()
 	scanf("%[^\n]", input_password);
 }
 
-void account_register()
+int account_registered()
 {
 	fflush(stdin);
 	User user;
@@ -82,6 +87,7 @@ re_username:
 	{
 		printf("The user id: %s already exists! Press enter key to try again...", user_name);
 		user_exists = 0;
+		rewind(user_data);
 		getchar();
 		goto re_username;
 	}
@@ -116,12 +122,24 @@ re_password:
 	if (is_file_empty(user_data))
 	{
 		fwrite(&user, sizeof(User), 1, user_data);
+		fclose(user_data);
+		printf("Account successfully registered. Press enter to go back to menu...");
+		fflush(stdin);
+		getchar();
+		return 1;
 	}
 	else
 	{
 		fseek(user_data, 0, SEEK_END);
 		fwrite(&user, sizeof(User), 1, user_data);
+		fclose(user_data);
+		printf("Account successfully registered. Press enter to go back to menu...");
+		fflush(stdin);
+		getchar();
+		return 1;
 	}
+	fclose(user_data);
+	return 0;
 }
 
 void exit_program(int error_code)

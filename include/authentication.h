@@ -15,7 +15,7 @@ typedef struct{
 
 void entry();
 void login();
-void account_register();
+int account_registered();
 void exit_program(int error_code);
 int is_password_user_valid(char password_user[]);
 int user_already_registered(char username[], FILE* file);
