@@ -7,8 +7,8 @@ void modify()
     struct Student read_student,temp_record;
     FILE *file_ptr;
     FILE *tempfile_ptr;
-    file_ptr= fopen("resources/student_info.txt", "r");
-    tempfile_ptr=fopen("resources/dummy_student_info.txt","w");
+    file_ptr= fopen("resources/student_info.txt", "rb");
+    tempfile_ptr=fopen("resources/dummy_student_info.txt","wb");
     if (file_ptr== NULL || tempfile_ptr== NULL )
     {
         printf("\nFILE DOESN'T EXIST\n");
@@ -97,6 +97,7 @@ void modify()
         printf("\nPlease enter a valid symbol number.");
         goto find;
     }
+    printf("\nThe students' record was successfully modified!!");
     getchar();
 }
 
@@ -106,8 +107,8 @@ void delete()
     FILE *file_ptr;
     FILE *newfile_ptr;
     struct Student read_student;
-    file_ptr = fopen("resources/student_info.txt", "r");
-    newfile_ptr = fopen("resources/new_student_info.txt", "W+");
+    file_ptr = fopen("resources/student_info.txt", "rb");
+    newfile_ptr = fopen("resources/new_student_info.txt", "Wb");
     if (file_ptr == NULL|| newfile_ptr == NULL )
     {
         fflush(stdin);

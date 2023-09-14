@@ -36,7 +36,7 @@ re_choice:
         break;
     case 5:
         modify();
-        getchar();
+        menu();
         break;
     case 6:
         exit(0);
@@ -193,7 +193,7 @@ void search()
         exit(0);
     }
 
-    printf("\n\n ======= Search Records ======\n\n");
+    printf("\n\n======= Search Records ======\n\n");
 re_symbol:
     printf("\nEnter symbol number: ");
     scanf("%d", &symbol_no);
@@ -206,7 +206,7 @@ re_symbol:
             printf("\nStudent symbol number: %d ", read_student.symbol_no);
             printf("\nStudent name: %s %s", read_student.first_name, read_student.last_name);
             printf("\nStudent Date of birth: %d/%d/%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
-            printf("\n no of subjects = %d", read_student.no_of_sub);
+            printf("\nNo. of subjects = %d", read_student.no_of_sub);
             for (i = 0; i < read_student.no_of_sub; i++)
             {
                 printf("\nSubject: %s ", read_student.subject[i]);
