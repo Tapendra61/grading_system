@@ -46,6 +46,7 @@ void view_student_record()
 {
     FILE *dummy;
     unsigned int read_symbol_no;
+    re_symbol_no:
     printf("\nEnter your symbol number: ");
     scanf("%d", &read_symbol_no);
     dummy = fopen("resources/dummy.txt", "r");
@@ -56,10 +57,12 @@ void view_student_record()
     }
     struct Student read_student;
     int i=0;
+    int student_found=0;
     while (fread(&read_student, sizeof(struct Student), 1, dummy))
     {
         if (read_student.symbol_no == read_symbol_no)
         {
+            student_found=1;
             printf("\n\tSymbol_no: %d", read_student.symbol_no);
             printf("\n---------------------------------------------");
             printf("\n\nStudent name : %s %s", read_student.first_name, read_student.last_name);
@@ -69,5 +72,14 @@ void view_student_record()
                 printf("\n\n Subject: %s\t %d\t %f\t %s ", read_student.subject[i],read_student.marks[i],read_student.gpa[i],read_student.grade[i]);
             }
         }
+        
     }
+    if(student_found==0)
+    {
+        printf("\nYou have entered wrong symbol number! Try again!");
+        read_symbol_no=0;
+        fclose(dummy);
+        goto re_symbol_no;
+    }
+    fclose(dummy);
 }
