@@ -42,7 +42,7 @@ void write_data()
     fclose(dummy);
 }
 
-void view_record()
+void view_student_record()
 {
     FILE *dummy;
     unsigned int read_symbol_no;

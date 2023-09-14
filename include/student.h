@@ -13,5 +13,5 @@ struct Student
     float gpa[5];
 };
 void write_data();
-void view_record();
+void view_student_record();
 #endif
