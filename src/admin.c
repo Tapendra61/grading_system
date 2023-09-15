@@ -9,7 +9,7 @@ void menu()
     printf("3.Search Student Record\n");
     printf("4.Delete Student Record\n");
     printf("5.Edit Student Record\n");
-    printf("6.Exit\n");
+    printf("6.Authentication Menu\n");
     printf("------------------------------------\n");
 re_choice:
     printf("Enter your choice: ");
@@ -39,7 +39,7 @@ re_choice:
         menu();
         break;
     case 6:
-        exit(0);
+        return;
         break;
 
     default:
@@ -122,7 +122,7 @@ again_subject:
     {
         fflush(stdin);
         printf("\nEnter subject name: ");
-        scanf("%s", input_student.subject[i]);
+        scanf("%[^\n]", input_student.subject[i]);
         fflush(stdin);
     again_marks:
         printf("Enter  marks for %s: ", input_student.subject[i]);

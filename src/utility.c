@@ -1,5 +1,10 @@
 #include"utility.h"
 
+void exit_program(int error_code)
+{
+	exit(error_code);
+}
+
 int is_file_empty(FILE* file) {
 	fseek(file, 0, SEEK_SET);
 	long initial_position = ftell(file);

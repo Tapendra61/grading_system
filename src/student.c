@@ -1,10 +1,13 @@
 #include "student.h"
 #include "stdlib.h"
 #include "string.h"
+
 void view_student_record()
 {
+    system("cls");
     FILE *student_info;
     unsigned int read_symbol_no;
+    printf("-------View Student Record-------");
 re_symbol_no:
     printf("\nEnter your symbol number: ");
     scanf("%d", &read_symbol_no);

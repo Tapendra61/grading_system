@@ -1,10 +1,7 @@
-#include "../include/authentication.h"
-#include "../include/admin.h"
-#include "../include/calculator.h"
-#include "../include/student.h"
+#include "mainMenu.h"
 int main()
 {
-	entry();
+	main_menu();
 	getchar();
 	return 0;
 }

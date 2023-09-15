@@ -6,5 +6,6 @@
 #include "windows.h"
 
 int is_file_empty(FILE *file);
+void exit_program(int error_code);
 
 #endif

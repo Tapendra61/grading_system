@@ -1,66 +1,70 @@
 #include "authentication.h"
-#include "admin.h"
 
 void entry()
 {
-	system("cls");
-	int selected_option = 0;
-	int logged_in = 0;
-	printf("-------Grading System-------\n");
-	printf("1. Login\n");
-	printf("2. Register\n");
-	printf("3. Exit\n");
-	scanf("%d", &selected_option);
-	switch (selected_option)
+	while (1)
 	{
-	case 1:
-		printf("logging in");
-		Sleep(1000);
-		logged_in = login();
-		if(logged_in){
-			printf("\nLogged in successfully. Press enter to continue...");
-			fflush(stdin);
-			getchar();
-			menu();
-		}
-		else {
-			printf("\nLogin was not successful please try again!!!");
-			fflush(stdin);
-			getchar();
-			entry();
-		}
-		break;
-
-	case 2:
-		printf("Registering...");
-		if (account_registered())
+		system("cls");
+		int selected_option = 0;
+		int logged_in = 0;
+		printf("-------Grading System-------\n");
+		printf("1. Login\n");
+		printf("2. Register\n");
+		printf("3. Main Menu\n");
+		scanf("%d", &selected_option);
+		switch (selected_option)
 		{
-			entry();
-		}
-		else
-		{
-			printf("Failed to register account!!! Try again.");
-			entry();
-		}
-		break;
+		case 1:
+			printf("logging in");
+			Sleep(1000);
+			logged_in = login();
+			if (logged_in)
+			{
+				printf("\nLogged in successfully. Press enter to continue...");
+				fflush(stdin);
+				getchar();
+				menu();
+			}
+			else
+			{
+				printf("\nLogin was not successful please try again!!!");
+				fflush(stdin);
+				getchar();
+				entry();
+			}
+			break;
 
-	case 3:
-		exit_program(0);
-		break;
+		case 2:
+			printf("Registering...");
+			if (account_registered())
+			{
+				entry();
+			}
+			else
+			{
+				printf("Failed to register account!!! Try again.");
+				entry();
+			}
+			break;
 
-	default:
-		printf("Invalid option selected. Try again");
-		Sleep(666);
-		printf(".");
-		Sleep(666);
-		printf(".");
-		Sleep(666);
-		printf(".");
-		Sleep(666);
-		entry();
-		break;
+		case 3:
+			return;
+			break;
+
+		default:
+			printf("Invalid option selected. Try again");
+			Sleep(666);
+			printf(".");
+			Sleep(666);
+			printf(".");
+			Sleep(666);
+			printf(".");
+			Sleep(666);
+			entry();
+			break;
+		}
+		fflush(stdin);
 	}
-	fflush(stdin);
 }
 
 int login()
@@ -168,11 +172,6 @@ re_password:
 	return 0;
 }
 
-void exit_program(int error_code)
-{
-	exit(error_code);
-}
-
 // Check if username and password contains only alphaNumberic characters
 int is_password_user_valid(char password_user[])
 {
@@ -219,7 +218,7 @@ int login_validated(char username[], char password[])
 
 	while (fread(&read_user_data, sizeof(User), 1, user_data))
 	{
-		if ((strcmp(read_user_data.username,username) == 0) && (strcmp(read_user_data.password_hash, password) == 0))
+		if ((strcmp(read_user_data.username, username) == 0) && (strcmp(read_user_data.password_hash, password) == 0))
 		{
 			id_matched = 1;
 		}
