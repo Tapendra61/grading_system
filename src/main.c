@@ -4,7 +4,6 @@
 int main()
 {
 	menu();
-	// view_student_record();
 	fflush(stdin);
 	getchar();
 	return 0;
