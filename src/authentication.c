@@ -1,4 +1,5 @@
 #include "authentication.h"
+#include "admin.h"
 
 void entry()
 {
@@ -20,6 +21,7 @@ void entry()
 			printf("\nLogged in successfully. Press enter to continue...");
 			fflush(stdin);
 			getchar();
+			menu();
 		}
 		else {
 			printf("\nLogin was not successful please try again!!!");
