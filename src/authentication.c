@@ -4,6 +4,7 @@ void entry()
 {
 	system("cls");
 	int selected_option = 0;
+	int logged_in = 0;
 	printf("-------Grading System-------\n");
 	printf("1. Login\n");
 	printf("2. Register\n");
@@ -13,14 +14,29 @@ void entry()
 	{
 	case 1:
 		printf("logging in");
-		login();
+		Sleep(1000);
+		logged_in = login();
+		if(logged_in){
+			printf("\nLogged in successfully. Press enter to continue...");
+			fflush(stdin);
+			getchar();
+		}
+		else {
+			printf("\nLogin was not successful please try again!!!");
+			fflush(stdin);
+			getchar();
+			entry();
+		}
 		break;
 
 	case 2:
-		printf("registering");
-		if(account_registered()) {
+		printf("Registering...");
+		if (account_registered())
+		{
 			entry();
-		}else {
+		}
+		else
+		{
 			printf("Failed to register account!!! Try again.");
 			entry();
 		}
@@ -45,16 +61,24 @@ void entry()
 	fflush(stdin);
 }
 
-void login()
+int login()
 {
-	char input_username[50];
-	char input_password[50];
+	fflush(stdin);
+	char input_username[31];
+	char input_password[31];
 	system("cls");
 	printf("-------Login-------\n");
 	printf("Enter your Login ID: ");
 	scanf("%[^\n]", input_username);
+	fflush(stdin);
 	printf("Enter your password: ");
 	scanf("%[^\n]", input_password);
+	fflush(stdin);
+	if (login_validated(input_username, input_password))
+	{
+		return 1;
+	}
+	return 0;
 }
 
 int account_registered()
@@ -179,7 +203,26 @@ int user_already_registered(char username[], FILE *file)
 	return user_exists;
 }
 
-int login_validator(char username[], char password[])
+int login_validated(char username[], char password[])
 {
-	return 0;
+	FILE *user_data;
+	user_data = fopen("resources/user_data.DAT", "rb");
+
+	if (user_data == NULL)
+	{
+		printf("\nThe file user_data.DAT does could not be found.!!");
+	}
+	User read_user_data;
+	int id_matched = 0;
+
+	while (fread(&read_user_data, sizeof(User), 1, user_data))
+	{
+		if ((strcmp(read_user_data.username,username) == 0) && (strcmp(read_user_data.password_hash, password) == 0))
+		{
+			id_matched = 1;
+		}
+	}
+
+	fclose(user_data);
+	return id_matched;
 }

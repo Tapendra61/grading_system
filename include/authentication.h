@@ -14,11 +14,11 @@ typedef struct{
 }User;
 
 void entry();
-void login();
+int login();
 int account_registered();
 void exit_program(int error_code);
 int is_password_user_valid(char password_user[]);
 int user_already_registered(char username[], FILE* file);
-int login_validator(char username[], char password[]);
+int login_validated(char username[], char password[]);
 
 #endif
