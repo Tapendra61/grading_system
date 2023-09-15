@@ -4,6 +4,7 @@
 
 void view_student_record()
 {
+    char empty_string[] = " ";
     system("cls");
     FILE *student_info;
     unsigned int read_symbol_no;
@@ -11,6 +12,7 @@ void view_student_record()
 re_symbol_no:
     printf("\nEnter your symbol number: ");
     scanf("%d", &read_symbol_no);
+    fflush(stdin);
     student_info = fopen("resources/student_info.txt", "rb");
     if (student_info == NULL)
     {
@@ -29,11 +31,12 @@ re_symbol_no:
             printf("\n---------------------------------------------");
             printf("\n\nStudent name : %s %s", read_student.first_name, read_student.last_name);
             printf("\n\nDate of Birth: %d /%d /%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
+            printf("\n\nSubjects:");
             for (i = 0; i < read_student.no_of_sub; i++)
             {
-                printf("\n\n Subject: %s\t %d\t %f\t %s ", read_student.subject[i], read_student.marks[i], read_student.gpa[i], read_student.grade[i]);
+                printf("\n%-30s%10d%10f%10s ", read_student.subject[i], read_student.marks[i], read_student.gpa[i], read_student.grade[i]);
             }
-            printf("\n\ncgpa:%f", read_student.cgpa);
+            printf("\n\nCGPA:%.2f", read_student.cgpa);
         }
     }
     if (student_found == 0)
