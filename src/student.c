@@ -34,7 +34,7 @@ re_symbol_no:
             printf("\n\nSubjects:");
             for (i = 0; i < read_student.no_of_sub; i++)
             {
-                printf("\n%-30s%10d%10f%10s ", read_student.subject[i], read_student.marks[i], read_student.gpa[i], read_student.grade[i]);
+                printf("\n%-30s%10d%10.2f%10s ", read_student.subject[i], read_student.marks[i], read_student.gpa[i], read_student.grade[i]);
             }
             printf("\n\nCGPA:%.2f", read_student.cgpa);
         }
