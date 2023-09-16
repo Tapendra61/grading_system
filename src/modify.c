@@ -117,6 +117,7 @@ void delete()
     }
     printf("Enter the symbol of student to remove the data: ");
     scanf("%d", &input_id_to_remove);
+    fflush(stdin);
     while (fread(&read_student, sizeof(struct Student), 1, file_ptr))
     {
         if (read_student.symbol_no != input_id_to_remove)
