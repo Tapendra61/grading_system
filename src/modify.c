@@ -71,6 +71,7 @@ find:
                 again_marks:
                     printf("Enter  marks for %s: ", temp_record.subject[i]);
                     scanf("%d", &temp_record.marks[i]);
+                    fflush(stdin);
                     if (temp_record.marks[i] < 0 || temp_record.marks[i] > 100)
                     {
                         printf("\nInvalid input for marks.");
@@ -79,6 +80,7 @@ find:
                     temp_record.gpa[i] = calculate_gpa(temp_record.marks[i]);
                     strcpy(temp_record.grade[i], calculate_grade(temp_record.marks[i]));
                 }
+                temp_record.cgpa = calculate_cgpa(temp_record.no_of_sub, temp_record.gpa);
                 fwrite(&temp_record, sizeof(struct Student), 1, tempfile_ptr);
             }
             else
