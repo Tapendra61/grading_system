@@ -105,6 +105,7 @@ find:
 void delete()
 {
     int input_id_to_remove = 0;
+    int id_found = 0;
     FILE *file_ptr;
     FILE *newfile_ptr;
     struct Student read_student;
@@ -126,11 +127,23 @@ void delete()
         {
             fwrite(&read_student, sizeof(struct Student), 1, newfile_ptr);
         }
+        else
+        {
+            id_found = 1;
+        }
     }
     fclose(file_ptr);
     fclose(newfile_ptr);
     remove("resources/student_info.txt");
     rename("resources/new_student_info.txt", "resources/student_info.txt");
+    if (!id_found)
+    {
+        printf("\nStudent record with symbol no: %d was not found.", input_id_to_remove);
+        id_found = 0;
+        printf("\nPress enter to continue...");
+        getchar();
+        return;
+    }
     printf("Removed entry with Symbol no: %d from the records.", input_id_to_remove);
     getchar();
 }
