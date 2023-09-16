@@ -5,7 +5,7 @@ void menu()
     {
         system("cls");
         int choice = 0;
-        printf("=======STUDENT DATABASE======= ");
+        printf("-------Admin Menu-------");
         printf("\n1.Add Student Record\n");
         printf("2.View Student Record\n");
         printf("3.Search Student Record\n");
