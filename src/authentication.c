@@ -7,7 +7,7 @@ void entry()
 		system("cls");
 		int selected_option = 0;
 		int logged_in = 0;
-		printf("-------Grading System-------\n");
+		printf("-------Authentication Menu-------\n");
 		printf("1. Login\n");
 		printf("2. Register\n");
 		printf("3. Main Menu\n");
@@ -125,7 +125,7 @@ re_username:
 	// Check if username is valid
 	if (!is_password_user_valid(user_name))
 	{
-		printf("Username can only contain AlphaNumeric values and should not exceed 30 characters. Try again!\n");
+		printf("Length of username must be >= 8 and <= 30 and can only be alphanumeric value. Try again!\n");
 		memset(user_name, 0, sizeof(user_name));
 		Sleep(1500);
 		goto re_username;
@@ -141,7 +141,7 @@ re_password:
 	// Check if password is valid alpha numeric
 	if (!is_password_user_valid(password))
 	{
-		printf("Password can only contain AlphaNumeric values and should not exceed 30 characters. Try again!\n");
+		printf("Length of password must be >= 8 and <= 30 and can only be alphanumeric value. Try again!\n");
 		memset(password, 0, sizeof(password));
 		Sleep(1500);
 		goto re_password;
@@ -177,7 +177,7 @@ int is_password_user_valid(char password_user[])
 {
 	int length = strlen(password_user);
 	int i = 0;
-	if (length == 0 || length > 30)
+	if (length < 8 || length > 30)
 		return 0;
 	for (i = 0; i < length; i++)
 	{
