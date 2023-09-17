@@ -30,10 +30,10 @@ void view_student_record()
             printf("\n---------------------------------------------");
             printf("\n\nStudent name : %s %s", read_student.first_name, read_student.last_name);
             printf("\n\nDate of Birth: %d /%d /%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
-            printf("\n\nSubjects:");
+            printf("\n\nSubjects %28sMarks%5sGPA%7sGrade\n", "", "", "");
             for (i = 0; i < read_student.no_of_sub; i++)
             {
-                printf("\n%-30s%10d%10.2f%10s ", read_student.subject[i], read_student.marks[i], read_student.gpa[i], read_student.grade[i]);
+                printf("\n%-30s%10d%10.2f%10s", read_student.subject[i], read_student.marks[i], read_student.gpa[i], read_student.grade[i]);
             }
             printf("\n\nCGPA:%.2f", read_student.cgpa);
         }
