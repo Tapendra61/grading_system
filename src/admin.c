@@ -172,11 +172,13 @@ void view_record()
         printf("\nStudent Date of birth: %d/%d/%d", read_student.DOB[0], read_student.DOB[1], read_student.DOB[2]);
         for (i = 0; i < read_student.no_of_sub; i++)
         {
+            printf("\n");
             printf("\nSubject: %s ", read_student.subject[i]);
             printf("\nSubject marks: %d", read_student.marks[i]);
             printf("\nSubject GAP: %.2f", read_student.gpa[i]);
             printf("\nSubject Grade: %s", read_student.grade[i]);
         }
+        printf("\n");
         printf("\nCGPA: %.2f", read_student.cgpa);
         printf("\n-------------------------------\n");
     }
@@ -216,11 +218,13 @@ re_symbol:
             printf("\nNo. of subjects = %d", read_student.no_of_sub);
             for (i = 0; i < read_student.no_of_sub; i++)
             {
+                printf("\n");
                 printf("\nSubject: %s ", read_student.subject[i]);
                 printf("\nSubject marks: %d", read_student.marks[i]);
                 printf("\nSubject GAP: %.2f", read_student.gpa[i]);
                 printf("\nSubject Grade: %s", read_student.grade[i]);
             }
+            printf("\n");
             printf("\nCGPA: %.2f", read_student.cgpa);
             printf("\n-----------------------------------\n");
         }
