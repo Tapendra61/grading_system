@@ -13,6 +13,7 @@ void entry()
 		printf("3. Main Menu\n");
 		printf("Please enter your choice: ");
 		scanf("%d", &selected_option);
+		fflush(stdin);
 		switch (selected_option)
 		{
 		case 1:

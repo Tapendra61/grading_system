@@ -9,7 +9,6 @@ void view_student_record()
     FILE *student_info;
     unsigned int read_symbol_no;
     printf("-------View Student Record-------");
-re_symbol_no:
     printf("\nEnter your symbol number: ");
     scanf("%d", &read_symbol_no);
     fflush(stdin);
@@ -44,7 +43,7 @@ re_symbol_no:
         printf("\nYou have entered wrong symbol number! Try again!");
         read_symbol_no = 0;
         fclose(student_info);
-        goto re_symbol_no;
+        return;
     }
     fclose(student_info);
 }
